@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="get">
+  {{ filter.form.as_p }}
+  <input type="submint">
+</form>
+{% for obj in filter.qs %}
+{{ obj.name }}
+{% endfor %}
+
+</body>
+</html>
