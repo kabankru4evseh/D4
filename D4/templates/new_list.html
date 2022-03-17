@@ -7,7 +7,11 @@
 <body>
 
 
-    {{ filter.form }} <!-- Форму от фильтров за нас сделает django. А вот кнопку, увы, придётся делать самому -->
+
+{% block content %}
+
+<form method="GET">
+    {{ filter.form }}
     <input type="submit" value="Найти">
 </form>
 
@@ -17,7 +21,7 @@
             Новость
         </th>
         <th>
-            Quantity
+            Дата
         </th>
     </thead>
     {% for new in filter.qs %}
@@ -26,8 +30,9 @@
             {{ new.title|title }}
         </td>
         <td>
-            {{ product.quantity }} # <!-- тут нада заменить на дату. f,f,f,f,f,f,f,!-->
+            {{ new.dateCreation }}
         </td>
+
     </tr>
     {% endfor %}
 </table>
@@ -53,9 +58,13 @@
 
 {% endif %}
 
+<form method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Добавить новость">
+</form>
 
-
-
+{% endblock content %}
 
 </body>
 </html>

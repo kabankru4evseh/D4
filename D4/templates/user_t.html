@@ -7,10 +7,10 @@
 <body>
 <form method="get">
   {{ filter.form.as_p }}
-  <input type="submint">
+  <input type="submit">
 </form>
 {% for obj in filter.qs %}
-{{ obj.name }}
+{{ obj.username }}
 {% endfor %}
 
 </body>

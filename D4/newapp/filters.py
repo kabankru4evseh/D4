@@ -7,8 +7,8 @@ class NewFilter(FilterSet):
     class Meta:
         model = New
         fields = {
-            'title': ['icontains']
-            # нужен фильтр по дате
+            'title': ['icontains'],
+            'dateCreation': ['icontains']
         }
 
 
@@ -21,5 +21,7 @@ class F(FilterSet):
 
         def my_filter(self, queryset, name, value):
             return queryset.filter(**{
-                name: value
+                name: value,
             })
+
+

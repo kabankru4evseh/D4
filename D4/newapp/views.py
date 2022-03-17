@@ -4,6 +4,7 @@ from .models import New
 from django.core.paginator import Paginator
 from .filters import NewFilter, F
 from django.contrib.auth.models import User
+from .forms import NewForm
 
 
 class NewList(ListView):
@@ -12,6 +13,7 @@ class NewList(ListView):
     context_object_name = 'news'
     ordering = ['-dateCreation']
     paginate_by = 1
+    form_class = NewForm
 
     def get_filter(self):
         return NewFilter(self.request.GET, queryset=super().get_queryset())
@@ -27,6 +29,15 @@ class NewList(ListView):
 
 
 def user_list(request):
-    f = F(request.GET, queryset=User.object.all())
+    f = F(request.GET, queryset=User.objects.all())
     return render(request, 'user_t.html', {'filter': f})
+
+
+def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+
+        if form.is_valid():
+            form.save()
+
+        return super().get(request, *args, **kwargs)
 
