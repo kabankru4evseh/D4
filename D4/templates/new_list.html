@@ -18,13 +18,15 @@
 <table>
     <thead>
         <th>
-            Новость
+            Заголовок
         </th>
         <th>
             Дата
         </th>
-    </thead>
-    {% for new in filter.qs %}
+        </thead>
+
+
+       {% for new in filter.qs %}
     <tr>
         <td>
             {{ new.title|title }}
@@ -35,7 +37,29 @@
 
     </tr>
     {% endfor %}
+
 </table>
+    <tr>
+        <td>
+            <a href="{% url 'new_detail' new.id %}">{{ new.title|title }}</a>
+            <a href="{% url 'add' product.id %}"><u>Редактировать</u></a>
+
+            <a href="{% url 'new_delete' product.id %}"><u> Удалить </u></a>
+        </td>
+        <td>
+            {{ new.dateCreation }}
+        </td>
+
+    </tr>
+
+</table>
+
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Добавить новость">
+</form>
 {% if is_paginated %}
 
     {% if page_obj.has_previous %}
@@ -46,7 +70,7 @@
     {% for num in page_obj.paginator.page_range %}
         {% if page_obj.number == num %}
             <a>{{ num }}</a>
-        {% elif num > page_obj.number|add:'-3' and num < obj.number|add:'3' %}
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
             <a href="?page={{ num }}">{{ num }}</a>
         {% endif %}
     {% endfor %}
@@ -55,14 +79,7 @@
         <a href="?page={{ page_obj.next_page_number }}">>>></a>
         <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
     {% endif %}
-
 {% endif %}
-
-<form method="POST">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Добавить новость">
-</form>
 
 {% endblock content %}
 

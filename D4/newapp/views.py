@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.views.generic import ListView, UpdateView, CreateView, DetailView, DeleteView
 from .models import New
 from django.core.paginator import Paginator
 from .filters import NewFilter, F
@@ -13,6 +13,15 @@ class NewList(ListView):
     context_object_name = 'news'
     ordering = ['-dateCreation']
     paginate_by = 1
+
+
+class NewDetailView(DetailView):
+    template_name = 'sample_app/new_detail.html'
+    queryset = New.objects.all()
+
+
+class NewCreateView(CreateView):
+    template_name = 'sample_app/add.html'
     form_class = NewForm
 
     def get_filter(self):
@@ -41,3 +50,18 @@ def post(self, request, *args, **kwargs):
 
         return super().get(request, *args, **kwargs)
 
+
+class NewUpdateView(UpdateView):
+    template_name = 'sample_app/product_create.html'
+    form_class = NewForm
+
+
+    def get_object(self, **kwargs):
+        id = self.kwargs.get('pk')
+        return New.objects.get(pk=id)
+
+
+class NewDeleteView(DeleteView):
+    template_name = 'sample_app/new_delete.html'
+    queryset = New.objects.all()
+    success_url = '/news/'

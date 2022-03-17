@@ -1,0 +1,26 @@
+{% extends 'sample_app/base.html' %}
+ 
+{% block title %} Product list {% endblock title %}
+ 
+{% block content %}
+<table>
+    <thead>
+
+        <th>
+            Заголовок
+        </th>
+        <th>
+            Дата
+        </th>
+
+    </thead>
+    <tr>
+        <td>
+            {{ new.title|title }}
+        </td>
+        <td>
+            {{ new.dateCreation }}
+        </td>
+    </tr>
+</table>
+{% endblock content %}

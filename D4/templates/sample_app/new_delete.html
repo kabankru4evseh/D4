@@ -1,0 +1,31 @@
+{% extends 'sample_app/base.html' %}
+ 
+{% block title %} Product list {% endblock title %}
+ 
+{% block content %}
+<h2>Вы действительно хотите удалить данную новость?</h2>
+<table>
+    <thead>
+
+        <th>
+            Заголовок
+        </th>
+        <th>
+            Дата
+        </th>
+
+    </thead>
+    <tr>
+        <td>
+            {{ new.title|title }}
+        </td>
+        <td>
+            {{ new.dateCreation }}
+        </td>
+    </tr>
+</table>
+ 
+<form method="POST">
+    {% csrf_token %}
+    <input type="submit" value="подтвердить"></form>
+{% endblock content %} 
